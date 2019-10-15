@@ -85,11 +85,19 @@ class wascan(object):
 			PTIME(url)
 			if kwargs['brute']:
 				BruteParams(kwargs,url,kwargs['data']).run()
-			if scan == 6:
+			if int(scan) == 6:
+				info('Starting full scan module except Brute...')
 				Fingerprint(kwargs,url).run()
-				Attacks(kwargs,url,kwargs['data'])
-				Audit(kwargs,url,kwargs['data'])
-				Disclosure(kwargs,url,kwargs['data']).run()
+				for u in Crawler().run(kwargs,url,kwargs['data']):
+					test('Testing URL: %s'%(u))
+					if '?' not in url:
+						warn('Not found query in this URL... Skipping..')
+					if type(u[0]) is tuple:
+						kwargs['data'] = u[1]
+						FullScan(kwargs,u[0],kwargs['data'])
+					else:
+						FullScan(kwargs,u,kwargs['data'])
+				Audit(kwargs,parse.netloc,kwargs['data'])
 			if scan == 0:
 				Fingerprint(kwargs,url).run()
 			if scan == 1:
