@@ -46,8 +46,8 @@ class wascan(object):
 		kwargs = ARGS
 		# verbose default == False
 		verbose = False
-		# scan default == 5
-		scan = "5"
+		# scan default == 6
+		scan = "6"
 		if len(sys.argv) < 2:
 			# True == exit
 			self.usage.basic(True)
@@ -85,6 +85,11 @@ class wascan(object):
 			PTIME(url)
 			if kwargs['brute']:
 				BruteParams(kwargs,url,kwargs['data']).run()
+			if scan == 6:
+				Fingerprint(kwargs,url).run()
+				Attacks(kwargs,url,kwargs['data'])
+				Audit(kwargs,url,kwargs['data'])
+				Disclosure(kwargs,url,kwargs['data']).run()
 			if scan == 0:
 				Fingerprint(kwargs,url).run()
 			if scan == 1:
