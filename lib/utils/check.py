@@ -77,9 +77,9 @@ def CEndUrl(url):
 
 def CScan(scan):
 	# check scan options
-	if scan not in ['0','1','2','3','4','5']:
-		info('Option --scan haven\'t argument, assuming default value 5')
-		scan = int('5') 
+	if scan not in ['0','1','2','3','4','5','6']:
+		info('Option --scan haven\'t argument, assuming default value 6')
+		scan = int('6') 
 	if isinstance(scan,str):
 		return int(scan)
 	return int(scan)
